@@ -1,24 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import { useSelector, useDispatch } from 'react-redux'
+import { getUserData } from './actionCreator/actionCreator';
 
 function App() {
+
+  let state = useSelector(stateObj => stateObj);
+  let dispatch = useDispatch();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <button onClick={() => { dispatch(getUserData()) }}>Call the API</button>
+      <ul>
+        {
+          state && state.map((cv, idx, arr) => {
+            return <li key={idx}>{cv.first_name}</li>
+          })
+        }
+      </ul>
+    </>
   );
 }
 
